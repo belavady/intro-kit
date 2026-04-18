@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harsha Belavady — Introduction Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #0A1628;
+    --navy-mid:   #0F2040;
+    --navy-card:  #112244;
+    --navy-hover: #162d58;
+    --navy-line:  #1e3a6e;
+    --cyan:       #00D4FF;
+    --cyan-dim:   rgba(0, 212, 255, 0.15);
+    --cyan-glow:  rgba(0, 212, 255, 0.35);
+    --white:      #F0F4FF;
+    --white-dim:  rgba(240, 244, 255, 0.55);
+    --white-faint:rgba(240, 244, 255, 0.25);
+    --gold:       #FFD166;
+    --sent-bg:    rgba(0, 212, 255, 0.08);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Background texture ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(0,212,255,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,80,160,0.12) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Grid lines ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 28px 100px; }
+
+  /* ══════════════════════════════════
+     HEADER
+  ══════════════════════════════════ */
+  .header {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--navy-line);
+    margin-bottom: 56px;
+  }
+
+  .header-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .eyebrow-line {
+    width: 32px;
+    height: 1px;
+    background: var(--cyan);
+  }
+
+  .eyebrow-text {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--cyan);
+  }
+
+  .header-sub {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white-dim);
+    margin-top: 16px;
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  .header-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--cyan-dim);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 40px;
+    padding: 6px 14px;
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--cyan);
+    letter-spacing: 0.02em;
+  }
+
+  .pill-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  /* ══════════════════════════════════
+     PROGRESS
+  ══════════════════════════════════ */
+  
+
+  
+
+  
+
+  
+
+  
+
+  /* ══════════════════════════════════
+     CARDS
+  ══════════════════════════════════ */
+  .cards { display: flex; flex-direction: column; gap: 20px; }
+
+  .card {
+    background: var(--navy-card);
+    border: 1px solid var(--navy-line);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+  .card:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:hover {
+    border-color: rgba(0,212,255,0.3);
+    box-shadow: 0 0 40px rgba(0,212,255,0.06), 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .card.sent {
+    border-color: rgba(0,212,255,0.4);
+    background: var(--sent-bg);
+  }
+
+  /* ── Card top bar ── */
+  .card-bar {
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .card:hover .card-bar, .card.sent .card-bar { opacity: 1; }
+
+  /* ── Card header ── */
+  .card-header {
+    padding: 28px 32px 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .card-left { display: flex; align-items: flex-start; gap: 20px; flex: 1; min-width: 0; }
+
+  .group-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--cyan);
+    opacity: 0.6;
+    min-width: 20px;
+    padding-top: 4px;
+    letter-spacing: 0.08em;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .card-desc {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--white-dim);
+    line-height: 1.6;
+    max-width: 400px;
+  }
+
+  /* ── Send button ── */
+  .btn-send {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-send::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--cyan);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 0;
+  }
+
+  .btn-send:hover::before { transform: translateX(0); }
+
+  .btn-send:hover {
+    color: var(--navy);
+    box-shadow: 0 0 24px var(--cyan-glow);
+    transform: translateY(-1px);
+  }
+
+  .btn-send span, .btn-send svg { position: relative; z-index: 1; }
+
+  .btn-send:active { transform: translateY(0); }
+
+  .card.sent .btn-send {
+    background: var(--cyan-dim);
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+
+  .sent-check {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--cyan);
+    opacity: 0.7;
+    margin-top: 8px;
+  }
+  .card.sent .sent-check { display: flex; }
+
+  /* ── Contacts section ── */
+  .card-contacts {
+    padding: 0 32px 28px 60px;
+  }
+
+  .contacts-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white-faint);
+    margin-bottom: 14px;
+  }
+
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+  }
+
+  .contact-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    min-width: 190px;
+    flex-shrink: 0;
+  }
+
+  .contact-sep {
+    font-size: 11px;
+    color: var(--navy-line);
+    margin: 0 10px;
+    flex-shrink: 0;
+  }
+
+  .contact-role {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--white-dim);
+  }
+
+  .contact-row.placeholder .contact-name {
+    color: rgba(0,212,255,0.45);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .contact-row.placeholder .contact-role {
+    color: rgba(0,212,255,0.35);
+  }
+
+  .add-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(0,212,255,0.1);
+    color: var(--cyan);
+    border: 1px solid rgba(0,212,255,0.2);
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* ── Divider ── */
+  .card-divider {
+    height: 1px;
+    background: var(--navy-line);
+    margin: 0 32px;
+    opacity: 0.5;
+  }
+
+  /* ── Note ── */
+  .card-note {
+    padding: 12px 32px 16px 60px;
+  }
+  .note-text {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--white-faint);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ══════════════════════════════════
+     FOOTER
+  ══════════════════════════════════ */
+  .footer {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--navy-line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-left {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--white-faint);
+    line-height: 1.6;
+  }
+
+  .footer-left strong {
+    color: var(--white-dim);
+    font-weight: 500;
+  }
+
+  .footer-right {
+    font-size: 11px;
+    color: rgba(0,212,255,0.35);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .card-header { flex-direction: column; gap: 16px; }
+    .btn-send { width: 100%; justify-content: center; }
+    .card-contacts { padding-left: 32px; }
+    .card-note { padding-left: 32px; }
+    .contact-row { flex-direction: column; gap: 1px; }
+    .contact-sep { display: none; }
+    .contact-name { min-width: unset; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── HEADER ── -->
+  <div class="header">
+    <div class="header-eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Template for Introduction</div>
+    </div>
+    <h1>Harsha Belavady</h1>
+    <div class="header-pills">
+      <div class="pill"><div class="pill-dot"></div>21+ Years — FMCG &amp; Strategy</div>
+      <div class="pill"><div class="pill-dot"></div>IIT Kharagpur MBA</div>
+      <div class="pill"><div class="pill-dot"></div>AI Platform Builder</div>
+    </div>
+    <p style="margin-top:24px;font-size:13px;font-weight:300;color:rgba(240,244,255,0.5);line-height:1.7;max-width:580px;">For each section, a pre-filled Outlook email template opens on clicking Send Email. Grateful to check content suitability and input email id and name.</p>
+  </div>
+
+  <!-- ── CARDS ── -->
+  <div class="cards">
+
+    <!-- ══ GROUP 1: ITC Infotech & Tech ══ -->
+    <div class="card" id="card-1">
+      <div class="card-bar"></div>
+      <div class="card-header">
+        <div class="card-left">
+          <div class="group-num">01</div>
+          <div>
+            <div class="card-title">ITC Infotech &amp; Tech</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <a class="btn-send" href="mailto:?to=&subject=Introduction%20-%20Harsha%20Belavady&body=Hi%20%5BName%5D%2C%0A%0AI'm%20reaching%20out%20to%20introduce%20you%20to%20Harsha.%20He%20is%20an%20ITC%20alum%20and%20a%20senior%20technology%20and%20product%20leader%20with%2021%2B%20years%20of%20experience%20spanning%20AI%20systems%20development%2C%20data%20analytics%2C%20product%20management%20and%20enterprise%20project%20delivery.%0A%0AHe%20has%20recently%20been%20selected%20in%20the%20H1B%20lottery%20and%20is%20exploring%20roles%20in%20the%20US%20in%20AI%20product%20management%2C%20data%20analytics%20or%20client%20engagement.%0A%0ACV%3A%20https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1jPAj9ZphzyM09KC6YdCEkO3TcNmAgwd2%2Fview%0A%0AHarsha%20can%20be%20reached%20at%20belavady%40gmail.com%20or%20%2B1%20(616)%20216-8653.%0A%0ARegards%0AHemant" onclick="markSent(1)">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1 1l13 6.5L1 14V9l9-1.5L1 6V1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            <span>Send Email</span>
+          </a>
+          <div class="sent-check">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 7l3.5 3.5L11 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Marked as sent
+          </div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-contacts">
+        <div class="contacts-label">Your LinkedIn Connections</div>
+        <div class="contact-grid">
+          <div class="contact-row">
+            <div class="contact-name">ITC Infotech</div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">&nbsp;</div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-name">Lax Gopisetty</div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">Infosys</div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-name">Farzana Haque</div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">TCS</div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-name">Sudip Singh</div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">Ness Digital Engineering</div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-name">Ateet Jaiswal</div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">Wipro</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ GROUP 2: Research ══ -->
+    <div class="card" id="card-2">
+      <div class="card-bar"></div>
+      <div class="card-header">
+        <div class="card-left">
+          <div class="group-num">02</div>
+          <div>
+            <div class="card-title">Research Companies</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <a class="btn-send" href="mailto:?to=&subject=Introduction%20-%20Harsha%20Belavady&body=Hi%20%5BName%5D%2C%0A%0AI'm%20reaching%20out%20to%20introduce%20you%20to%20Harsha.%20He%20is%20a%20senior%20consumer%20insights%20and%20FMCG%20strategy%20leader%20with%2021%2B%20years%20of%20experience%20of%20which%20he%20spent%20over%2012%20years%20at%20ITC%20and%20has%20since%20built%20multiple%20AI%20driven%20market%20intelligence%20platforms.%0A%0AHe%20has%20recently%20been%20selected%20in%20the%20H1B%20lottery%20and%20is%20exploring%20roles%20in%20the%20US.%20I%20believe%20he%20would%20be%20a%20genuine%20asset%20to%20any%20insights%20or%20analytics%20organisation.%0A%0ACV%3A%20https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1YgD6ii8KokgVbj31ANT6hv-ZnPNDIKYq%2Fview%0A%0AHarsha%20can%20be%20reached%20at%20belavady%40gmail.com%20or%20%2B1%20(616)%20216-8653.%0A%0ARegards%0AHemant" onclick="markSent(2)">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1 1l13 6.5L1 14V9l9-1.5L1 6V1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            <span>Send Email</span>
+          </a>
+          <div class="sent-check">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 7l3.5 3.5L11 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Marked as sent
+          </div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-contacts">
+        <div class="contacts-label">Your LinkedIn Connections</div>
+        <div class="contact-grid">
+          <div class="contact-row">
+            <div class="contact-name">Nielsen</div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-name">Kantar</div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-name">Ipsos</div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-name">IMRB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ GROUP 3: Consulting ══ -->
+    <div class="card" id="card-3">
+      <div class="card-bar"></div>
+      <div class="card-header">
+        <div class="card-left">
+          <div class="group-num">03</div>
+          <div>
+            <div class="card-title">Consulting Companies</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <a class="btn-send" href="mailto:?to=&subject=Introduction%20-%20Harsha%20Belavady&body=Hi%20%5BName%5D%2C%0A%0AI'm%20reaching%20out%20to%20introduce%20you%20to%20Harsha.%0A%0AHarsha%20has%20over%2021%20years%20of%20experience%20spanning%20FMCG%20strategy%2C%20P%26L%20ownership%2C%20go-to-market%20execution%2C%20and%20AI-driven%20strategic%20advisory.%20He%20has%20also%20built%20a%20proprietary%20AI%20advisory%20platform%20using%20a%20deliberative%2012-agent%20AI%20system%20for%20FMCG%20and%20SaaS%20companies.%0A%0AHarsha%20has%20recently%20been%20selected%20in%20the%20H1B%20lottery%20and%20is%20looking%20at%20opportunities%20in%20the%20US%20in%20strategy%20or%20consumer%20practice%20roles.%0A%0ACV%3A%20https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1TXkN72xLis6D6J3f1SpUGhgCCIVJbqpa%2Fview%0A%0AHarsha%20can%20be%20reached%20at%20belavady%40gmail.com%20or%20%2B1%20(616)%20216-8653.%0A%0ARegards%0AHemant" onclick="markSent(3)">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1 1l13 6.5L1 14V9l9-1.5L1 6V1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            <span>Send Email</span>
+          </a>
+          <div class="sent-check">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 7l3.5 3.5L11 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Marked as sent
+          </div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-contacts">
+        <div class="contacts-label">Your LinkedIn Connections</div>
+        <div class="contact-grid">
+          <div class="contact-row">
+            <div class="contact-name">Abhinav Goel</div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">McKinsey &amp; Company (ITC Alumni)</div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-name">Nadeem Zaman</div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">Bain &amp; Company</div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-name">Rohit Saigal</div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">Accenture</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ GROUP 4: FMCG ══ -->
+    <div class="card" id="card-4">
+      <div class="card-bar"></div>
+      <div class="card-header">
+        <div class="card-left">
+          <div class="group-num">04</div>
+          <div>
+            <div class="card-title">Peer FMCG Network</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <a class="btn-send" href="mailto:?to=&subject=Introduction%20-%20Harsha%20Belavady&body=Hi%20%5BName%5D%2C%0A%0AI%20hope%20you%20are%20doing%20well.%0A%0AI'm%20reaching%20out%20to%20introduce%20you%20to%20Harsha.%20He%20spent%2012%20years%20at%20ITC%20in%20varied%20sales%20%26%20marketing%20roles%20before%20moving%20to%20the%20US.%20He%20has%20also%20built%20a%20proprietary%20AI%20advisory%20platform%20using%20a%20deliberative%2012-agent%20AI%20system%20for%20FMCG%20and%20SaaS%20companies.%0A%0AHarsha%20has%20recently%20been%20selected%20in%20the%20H1B%20lottery%20and%20is%20looking%20at%20roles%20in%20consumer%20strategy%2C%20brand%20management%2C%20or%20GTM%20leadership%20at%20a%20US%20CPG%20company.%0A%0ACV%3A%20https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1Aes993Pgk734pEV4VFwVnR181JxRR2Bj%2Fview%0A%0AIf%20you%20have%20a%20connection%20who%20might%20benefit%20from%20a%20conversation%20with%20Harsha%2C%20I%20would%20appreciate%20the%20introduction.%0A%0AHarsha%20can%20be%20reached%20at%20belavady%40gmail.com%20or%20%2B1%20(616)%20216-8653.%0A%0ARegards%0AHemant" onclick="markSent(4)">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1 1l13 6.5L1 14V9l9-1.5L1 6V1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            <span>Send Email</span>
+          </a>
+          <div class="sent-check">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 7l3.5 3.5L11 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Marked as sent
+          </div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-contacts">
+        <div class="contacts-label">Your LinkedIn Connections</div>
+        <div class="contact-grid">
+          <div class="contact-row">
+            <div class="contact-name">Ram Raghavan</div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">Kraft Heinz, US</div>
+          </div>
+          <div class="contact-row placeholder">
+            <div class="contact-name">Your contacts <span class="add-tag">add</span></div>
+            <div class="contact-sep">—</div>
+            <div class="contact-role">HUL / P&amp;G / Reckitt / Nestlé with US connections</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div><!-- /cards -->
+
+  <!-- ── FOOTER ── -->
+  <div class="footer">
+    <div class="footer-left">
+      <strong>Harsha Belavady</strong> · belavady@gmail.com · +1 (616) 216-8653
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  const sentState = { 1: false, 2: false, 3: false, 4: false };
+
+  function markSent(n) {
+    // Small delay so Outlook has time to open first
+    setTimeout(() => {
+      sentState[n] = true;
+      const card = document.getElementById('card-' + n);
+      if (card) card.classList.add('sent');
+      
+    }, 800);
+  }
+</script>
+
+</body>
+</html>
